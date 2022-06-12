@@ -1,0 +1,48 @@
+.windIMG1 {
+    height: 100px;
+    width: 100px;
+    background-image: url(./img/wiatr.png);
+    background-size: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.windIMG2 {
+    height: 100px;
+    width: 100px;
+    background-image: url(./img/wiatr.png);
+    background-size: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.windIMG3 {
+    height: 100px;
+    width: 100px;
+    background-image: url(./img/wiatr.png);
+    background-size: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.loader {
+  visibility: hidden;
+  height: 100px;
+  width: 100px;
+  background-image: url(./img/loading.svg);
+  background-size: cover;
+  
+}
+
+.image1 img, .image2 img, .image3 img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
