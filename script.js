@@ -1,18 +1,21 @@
-let url = new URL("https://www.wowapi.pl/pogoda/prognoza?miasto=");  // declaration of variables 
+// declaration of variables 
+let url = new URL("https://weather-api-alpha.herokuapp.com/pogoda/prognoza?miasto=");  
 let list1 = document.querySelector("#list-cities");
 let inputField = document.querySelector("#choose-city");
 let arrCities = [];
 let loader = document.querySelector(".loader");
 let actualCity = document.querySelector("#actualCity");
 
-window.onload = loadCitiesNames; // Loading Json file from API containing list of cities when app starts 
+// Loading Json file from API containing list of cities when app starts 
+window.onload = loadCitiesNames; 
 
+//fetching cities list from remote API using async function
 function loadCitiesNames() {
 
     loader.style.visibility = "visible";
 
     async function fetchCitiesBadStatus() {
-        const response = await fetch('https://www.wowapi.pl/pogoda/miasta');
+        const response = await fetch('https://weather-api-alpha.herokuapp.com/pogoda/miasta');
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
@@ -23,16 +26,14 @@ function loadCitiesNames() {
     fetchCitiesBadStatus().catch(error => {
         let err = error.message; 'An error has occurred: 404'
         alert(`${err}`);
-
-        // console.error(`Error fetching data ${response.status}`);
     });
-
     fetchCitiesBadStatus().then(unpackCitiesName);
-
 }
 
+// function to operate on JSON data
 function unpackCitiesName(citiesDataJson) {
-    for (let i = 0; i < citiesDataJson.length; i++) {     //loop through the JSON file and pushing cities to the array
+    //loop through the JSON file and pushing cities to the array
+    for (let i = 0; i < citiesDataJson.length; i++) {     
         arrCities.push(citiesDataJson[i].nazwa);
     }
 
@@ -41,23 +42,29 @@ function unpackCitiesName(citiesDataJson) {
         option1.value = arrCities[j];
         list1.appendChild(option1);
     }
+    // turning off loader when array filled by cities
     loader.style.visibility = "hidden";
 }
 
-inputField.addEventListener("change", function () {         //event listener for change input field
+//event listener for change input field
+inputField.addEventListener("change", function () {     
+    //function attaching choosen city to the URL declared    
     url.searchParams.set('miasto', inputField.value);
+    // turining on loader
     loader.style.visibility = "visible";
     actualCity.innerHTML = inputField.value; 
-    //function attaching choosen city to the URL declared
-
+    
+    // clearing input value
     setTimeout(clearingInputField, 1000);
     function clearingInputField() {
         inputField.value = " ";
     }
 
+    // visual indication that data is loading
     setTimeout(downloadWeatherForecastData, 1500);
 });
 
+// fetching (async) API for weather forecast using city chosen from an input (array data)
 function downloadWeatherForecastData() {
 
     async function fetchDownloadWeatherForecastDataBadStatus() {
@@ -78,8 +85,10 @@ function downloadWeatherForecastData() {
 
 }
 
+// function to use JSON weather forecas data
 function unpackWeatherForecastData(weatherJSON) {
 
+    // loader turned off
     loader.style.visibility = "hidden";
 
     let nowIMG = document.querySelector(".image1");
